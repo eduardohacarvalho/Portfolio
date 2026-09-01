@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html :lang="idiomaAtual">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eduardo Carvalho - Portfólio</title>
+    <!-- Fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #151d30;
+            --card-bg-hover: #1c2740;
+            --text-color: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent-color: #38bdf8;
+            --accent-hover: #7dd3fc;
+            --border-color: #1e293b;
+            --border-highlight: #334155;
+            --badge-bg: rgba(56, 189, 248, 0.1);
+            --badge-border: rgba(56, 189, 248, 0.25);
+            --badge-text: #38bdf8;
+            --radius: 12px;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 4rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-highlight);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        header {
+            background-color: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        header h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-color);
+            letter-spacing: -0.02em;
+        }
+
+        header h1 span {
+            color: var(--accent-color);
+        }
+
+        nav {
+            display: flex;
+            gap: 1.25rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Seletor de Idioma */
+        .lang-switch {
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2px;
+            gap: 2px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.25rem 0.65rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        main {
+            max-width: 920px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.3s ease;
+        }
+
+        section:hover {
+            border-color: var(--border-highlight);
+        }
+
+        h2 {
+            color: var(--text-color);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .profile-container {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            min-width: 200px;
+            min-height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+        }
+
+        .profile-text {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .profile-text p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+        }
+
+        .profile-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .profile-text strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .stacks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .stack-card {
+            background-color: rgba(11, 15, 25, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .stack-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-highlight);
+        }
+
+        .stack-card h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background-color: var(--badge-bg);
+            border: 1px solid var(--badge-border);
+            color: var(--badge-text);
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: rgba(56, 189, 248, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .language-card {
+            background-color: rgba(11, 15, 25, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .language-card .lang-title {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .language-card .lang-level {
+            color: var(--accent-color);
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+
+        ul.simple-list {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        ul.simple-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        ul.simple-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.65rem;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+        }
+
+        .list-item-title {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .project-card {
+            background-color: rgba(11, 15, 25, 0.4);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.25s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--border-highlight);
+            box-shadow: var(--shadow-md);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.85rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .project-title {
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 1.05rem;
+        }
+
+        a.btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--badge-border);
+            padding: 0.35rem 0.85rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        a.btn-link:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border-color: var(--accent-color);
+        }
+
+        .project-desc {
+            font-size: 0.92rem;
+            white-space: pre-line;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: 1rem;
+            }
+            section {
+                padding: 1.5rem;
+            }
+            .profile-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>{{ perfil.nome.split(' ')[0] }} <span>{{ perfil.nome.split(' ')[1] }}</span></h1>
+            <nav>
+                <a href="#sobre">{{ t.nav.sobre }}</a>
+                <a href="#stacks">{{ t.nav.stacks }}</a>
+                <a href="#soft-skills">{{ t.nav.softSkills }}</a>
+                <a href="#formacao">{{ t.nav.formacao }}</a>
+                <a href="#experiencia">{{ t.nav.experiencia }}</a>
+                <a href="#projetos">{{ t.nav.projetos }}</a>
+                <a href="#idiomas">{{ t.nav.idiomas }}</a>
+                
+                <div class="lang-switch">
+                    <button class="lang-btn" :class="{ active: idiomaAtual === 'pt' }" @click="idiomaAtual = 'pt'">PT</button>
+                    <button class="lang-btn" :class="{ active: idiomaAtual === 'en' }" @click="idiomaAtual = 'en'">EN</button>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Sobre Mim -->
+            <section id="sobre">
+                <h2>{{ t.secoes.sobre }}</h2>
+                <div class="profile-container">
+                    <img :src="perfil.foto" :alt="perfil.nome" class="profile-img">
+                    <div class="profile-text">
+                        <p v-html="t.sobreP1"></p>
+                        <p v-html="t.sobreP2"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tecnologias e Ferramentas -->
+            <section id="stacks">
+                <h2>{{ t.secoes.stacks }}</h2>
+                <div class="stacks-grid">
+                    <div v-for="(stack, index) in t.stacks" :key="index" class="stack-card">
+                        <h3>{{ stack.categoria }}</h3>
+                        <div class="tags-container">
+                            <span v-for="(tech, tIndex) in stack.itens" :key="tIndex" class="tag">{{ tech }}</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Soft Skills -->
+            <section id="soft-skills">
+                <h2>{{ t.secoes.softSkills }}</h2>
+                <div class="tags-container">
+                    <span v-for="(skill, index) in t.softSkills" :key="index" class="tag">{{ skill }}</span>
+                </div>
+            </section>
+
+            <!-- Formação Acadêmica & Complementar -->
+            <section id="formacao">
+                <h2>{{ t.secoes.formacaoAcademica }}</h2>
+                <ul class="simple-list">
+                    <li v-for="(item, index) in t.formacaoAcademica" :key="index">
+                        <span class="list-item-title">{{ item.curso }}</span> &bull; {{ item.instituicao }} &bull; {{ item.periodo }} ({{ item.status }})
+                    </li>
+                </ul>
+
+                <h2 style="margin-top: 2rem;">{{ t.secoes.formacaoComplementar }}</h2>
+                <ul class="simple-list">
+                    <li v-for="(item, index) in t.formacaoComplementar" :key="index">
+                        <span class="list-item-title">{{ item.nome }}</span> &bull; {{ item.plataforma }}
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Experiência Profissional -->
+            <section id="experiencia">
+                <h2>{{ t.secoes.experiencia }}</h2>
+                <ul class="simple-list">
+                    <li v-for="(exp, index) in t.experiencias" :key="index">
+                        <span class="list-item-title">{{ exp.cargo }}</span> &bull; {{ exp.empresa }} ({{ exp.periodo }})
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Projetos -->
+            <section id="projetos">
+                <h2>{{ t.secoes.projetosDev }}</h2>
+                <div v-for="(proj, index) in t.projetosDev" :key="index" class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">{{ proj.titulo }}</span>
+                        <a :href="proj.link" target="_blank" class="btn-link">{{ t.btnRepo }} &rarr;</a>
+                    </div>
+                    <p class="project-desc">{{ proj.descricao }}</p>
+                </div>
+
+                <h2 style="margin-top: 2rem;">{{ t.secoes.projetosMarketing }}</h2>
+                <ul class="simple-list">
+                    <li v-for="(proj, index) in t.projetosMarketing" :key="index">
+                        <span class="list-item-title">{{ proj.nome }}</span> &bull; {{ proj.ano }}
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Idiomas -->
+            <section id="idiomas">
+                <h2>{{ t.secoes.idiomas }}</h2>
+                <div class="languages-grid">
+                    <div v-for="(lang, index) in t.idiomas" :key="index" class="language-card">
+                        <span class="lang-title">{{ lang.idioma }}</span>
+                        <span class="lang-level">{{ lang.nivel }}</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const { createApp, ref, computed } = Vue;
+
+        createApp({
+            setup() {
+                const idiomaAtual = ref('pt');
+
+                const perfil = ref({
+                    nome: 'Eduardo Carvalho',
+                    nomeCompleto: 'Eduardo Henrique Alves de Carvalho',
+                    nascimento: '01/10/2000',
+                    foto: 'assets/eu.png'
+                });
+
+                const traducoes = {
+                    pt: {
+                        nav: {
+                            sobre: 'Sobre',
+                            stacks: 'Tecnologias',
+                            softSkills: 'Soft Skills',
+                            formacao: 'Formação',
+                            experiencia: 'Experiência',
+                            projetos: 'Projetos',
+                            idiomas: 'Idiomas'
+                        },
+                        secoes: {
+                            sobre: 'Sobre mim',
+                            stacks: 'Tecnologias e Ferramentas',
+                            softSkills: 'Soft Skills',
+                            formacaoAcademica: 'Formação Acadêmica',
+                            formacaoComplementar: 'Formação Complementar',
+                            experiencia: 'Experiência Profissional',
+                            projetosDev: 'Projetos Acadêmicos de Desenvolvimento',
+                            projetosMarketing: 'Projetos de Marketing Promocional com Experiência do Cliente',
+                            idiomas: 'Idiomas'
+                        },
+                        btnRepo: 'Acessar repositório',
+                        sobreP1: 'Sou <strong>Eduardo Henrique Alves de Carvalho</strong>, pernambucano, nascido em 01/10/2000. Atuo como <strong>desenvolvedor Full Stack</strong> em transição de carreira, combinando minha formação em Administração pela Universidade de Pernambuco com especializações em tecnologia. Atualmente, estou cursando pós-graduação em Engenharia de Software na Anhanguera e formação técnica em Informática para Internet no Senai, com residência tecnológica no Porto Digital.',
+                        sobreP2: 'Tenho experiência consolidada no mercado, atuando em funções administrativas no Sebrae e na UPE, além de vivência em agências de marketing e eventos. Minha atuação é centrada no desenvolvimento de soluções completas, na gestão de processos, projetos e equipes, sempre com foco em alta performance e na experiência do cliente.',
+                        stacks: [
+                            { categoria: 'Linguagens & Frameworks', itens: ['Java', 'Python', 'Spring Boot', 'JPA', 'Hibernate', 'Spring Security'] },
+                            { categoria: 'Desenvolvimento Web', itens: ['HTML', 'CSS', 'Bootstrap'] },
+                            { categoria: 'Segurança & Autenticação', itens: ['JWT (JSON Web Token)', 'Spring Security'] },
+                            { categoria: 'Bancos de Dados', itens: ['PostgreSQL', 'MySQL', 'MongoDB', 'H2'] },
+                            { categoria: 'Gerenciamento de Dependências', itens: ['Maven'] },
+                            { categoria: 'Controle de Versão & Ferramentas', itens: ['Git', 'GitHub', 'Postman'] }
+                        ],
+                        softSkills: [
+                            'Trabalho em equipe', 'Comunicativo', 'Proativo', 'Analítico',
+                            'Resiliente', 'Criativo', 'Inteligência emocional', 'Adaptabilidade'
+                        ],
+                        formacaoAcademica: [
+                            { curso: 'Bacharelado em Administração', instituicao: 'Universidade de Pernambuco (UPE)', periodo: 'Agosto/2019 - Outubro/2023', status: 'concluído' },
+                            { curso: 'Técnico em Informática para Internet', instituicao: 'Senai', periodo: 'Abril/2026 - Junho/2027', status: 'em andamento' },
+                            { curso: 'Pós-graduação em Engenharia de Software', instituicao: 'Anhanguera', periodo: 'Agosto/2026 - Fevereiro/2027', status: 'em andamento' }
+                        ],
+                        formacaoComplementar: [
+                            { nome: 'Java Completo com Programação Orientada a Objetos(POO) + Projetos (Instrutor Nelio Alves)', plataforma: 'Udemy' },
+                            { nome: 'Trilha de Conhecimento em Banco de Dados', plataforma: 'Fundação Bradesco' },
+                            { nome: 'Introdução à Gestão de Projetos', plataforma: 'Fundação Bradesco' },
+                            { nome: 'Soluções Ágeis', plataforma: 'Sebrae' },
+                            { nome: 'Design thinking', plataforma: 'Sebrae' },
+                            { nome: 'Lean Canvas', plataforma: 'Sebrae' },
+                            { nome: 'Modelo de Negócios', plataforma: 'Sebrae' }
+                        ],
+                        experiencias: [
+                            { cargo: 'Assistente Administrativo II', empresa: 'Sebrae PE', periodo: 'mar/25 - set/25' },
+                            { cargo: 'Produtor', empresa: 'Prensa Marketing', periodo: 'out/24 - fev/25' },
+                            { cargo: 'Produtor', empresa: 'Carla Dias Assessorias em Eventos', periodo: 'jul/25 - out/25' },
+                            { cargo: 'Produtor', empresa: 'Ayres Promoções e Eventos', periodo: 'jul/25 - out/25' },
+                            { cargo: 'Produtor Executivo', empresa: 'Sebrae PE', periodo: 'mar/24 - jun/24' },
+                            { cargo: 'Assistente Administrativo I', empresa: 'Sebrae/PE', periodo: 'jun/23 - mar/24' },
+                            { cargo: 'Estagiário', empresa: 'Sebrae PE', periodo: 'fev/22 - jun/23' },
+                            { cargo: 'Estagiário', empresa: 'Universidade de Pernambuco', periodo: 'nov/20 - fev/22' }
+                        ],
+                        projetosDev: [
+                            {
+                                titulo: 'Java - JPA Puro — CRUD com EntityManager',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/main/CRUD%20-%20JPA',
+                                descricao: `Aplicação Java demonstrando operações de CRUD utilizando JPA puro com EntityManager, sem frameworks como Spring. O projeto explora o funcionamento da especificação JPA na sua forma mais fundamental, com controle manual de transações e ciclo de vida das entidades.\nEntidade mapeada com @Entity, @Id e @GeneratedValue\nOperações: persist, find, update e remove\nConceitos: EntityManagerFactory, EntityManager, controle de transações e persistence.xml\nTecnologias: Java · JPA · Hibernate · Maven\nDesenvolvido durante o curso Java COMPLETO — POO + Projetos (Nelio Alves)`
+                            },
+                            {
+                                titulo: 'Java - Spring Boot JPA — Web Services (E-commerce API)',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/jpa-spring',
+                                descricao: `API REST de e-commerce desenvolvida com Spring Boot e JPA/Hibernate, com gerenciamento completo de usuários, produtos, categorias e pedidos.\nModelo de domínio com 6 entidades relacionadas (User, Order, Product, Category, Payment, OrderItem)\nEndpoints REST para Users, Orders, Products e Categories\nRelacionamentos JPA: @ManyToOne, @OneToMany, @OneToOne, @ManyToMany e chave composta com @EmbeddedId\nTratamento de erros com @ControllerAdvice e respostas padronizadas (404, 400)\nTecnologias: Java 17 · Spring Boot · Spring Data JPA · Hibernate · Maven\nDesenvolvido durante o curso Java COMPLETO — POO + Projetos (Nelio Alves)`
+                            },
+                            {
+                                titulo: 'Java - Spring Boot MongoDB - Users & Posts API',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/mongodb',
+                                descricao: `API REST desenvolvida com Spring Boot e MongoDB para gerenciamento de usuários e posts com suporte a comentários e busca avançada.\nEndpoints REST completos para Users e Posts (GET, POST, PUT, DELETE)\nBusca avançada com filtro por texto e intervalo de datas em documentos MongoDB\nModelo de dados com documentos aninhados (posts com autor e comentários embutidos)\nDTOs para transferência de dados e separação de responsabilidades\nTecnologias: Java 17 · Spring Boot · Spring Data MongoDB · MongoDB · Maven\nDesenvolvido durante o curso Java COMPLETO — POO + Projetos (Nelio Alves)`
+                            },
+                            {
+                                titulo: 'Java - Usuários API - Spring Boot + JWT',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/usuarios-api',
+                                descricao: `Projeto autoral desenvolvido de forma independente para consolidar na prática os conhecimentos adquiridos em Java e Spring Boot. A API gerencia usuários e tarefas com autenticação e autorização completas via JWT e Spring Security.\nFluxo completo de autenticação: registro, login e proteção de rotas com JWT\nCRUD de tarefas vinculadas ao usuário autenticado\nGestão de usuários com busca por ID e e-mail\nTratamento global de erros e separação de responsabilidades com DTOs\nO código foi revisado com apoio de IA como ferramenta de aprendizado — prática que acelera a identificação de melhorias e reforça boas práticas de desenvolvimento Backend.\nTecnologias: Java · Spring Boot · Spring Security · JWT · Spring Data JPA · PostgreSQL · Lombok · Maven`
+                            },
+                            {
+                                titulo: 'Java - Jogo de Xadrez - POO',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/main/sistema-xadrez',
+                                descricao: `Jogo de xadrez completo desenvolvido em Java, executado via terminal com interface colorida. Um dos projetos mais desafiadores para demonstrar domínio de POO e lógica de programação.\n6 peças implementadas com regras completas (Rei, Dama, Torre, Bispo, Cavalo e Peão)\nMovimentos especiais: Roque, En Passant e Promoção do Peão\nDetecção de cheque e xeque-mate\nArquitetura em camadas separando lógica genérica do tabuleiro (boardgame) da lógica específica do xadrez (chess)\nTecnologias: Java 17 · POO · Maven\nDesenvolvido durante o curso Java COMPLETO — POO + Projetos (Nelio Alves)`
+                            }
+                        ],
+                        projetosMarketing: [
+                            { nome: 'Corrida do Novo', ano: '2025' },
+                            { nome: 'Celebra - Rede d\'or', ano: '2024' },
+                            { nome: 'Corrida dos Morros - Morro da Conceição', ano: '2024' },
+                            { nome: 'Eventos de Entrega de Obras e Assinatura de Ordens de Serviços – DER-PE', ano: '2024' },
+                            { nome: 'Agrinordeste', ano: '2024' },
+                            { nome: 'NEON - Sebrae PB', ano: '2024' },
+                            { nome: 'Feira do Empreendedor - Sebrae PE', ano: '2024' }
+                        ],
+                        idiomas: [
+                            { idioma: 'Português', nivel: 'Nativo' },
+                            { idioma: 'Inglês', nivel: 'Avançado' }
+                        ]
+                    },
+                    en: {
+                        nav: {
+                            sobre: 'About',
+                            stacks: 'Technologies',
+                            softSkills: 'Soft Skills',
+                            formacao: 'Education',
+                            experiencia: 'Experience',
+                            projetos: 'Projects',
+                            idiomas: 'Languages'
+                        },
+                        secoes: {
+                            sobre: 'About me',
+                            stacks: 'Technologies & Tools',
+                            softSkills: 'Soft Skills',
+                            formacaoAcademica: 'Academic Background',
+                            formacaoComplementar: 'Certifications & Courses',
+                            experiencia: 'Professional Experience',
+                            projetosDev: 'Academic Software Development Projects',
+                            projetosMarketing: 'Promotional Marketing & Customer Experience Projects',
+                            idiomas: 'Languages'
+                        },
+                        btnRepo: 'View repository',
+                        sobreP1: 'I am <strong>Eduardo Henrique Alves de Carvalho</strong>, born in Pernambuco, Brazil (10/01/2000). I am a <strong>Full Stack Developer</strong> undergoing a career transition, combining my background in Business Administration from the University of Pernambuco with software engineering specializations. Currently pursuing a Postgraduate Degree in Software Engineering at Anhanguera and a Technical Degree in Web Development at Senai, as part of a tech residency at Porto Digital.',
+                        sobreP2: 'I have solid market experience with administrative roles at Sebrae and UPE, as well as hands-on experience in marketing agencies and event management. My core focus is building end-to-end applications, managing processes, projects, and teams, always prioritizing high performance and exceptional customer experience.',
+                        stacks: [
+                            { categoria: 'Languages & Frameworks', itens: ['Java', 'Python', 'Spring Boot', 'JPA', 'Hibernate', 'Spring Security'] },
+                            { categoria: 'Web Development', itens: ['HTML', 'CSS', 'Bootstrap'] },
+                            { categoria: 'Security & Authentication', itens: ['JWT (JSON Web Token)', 'Spring Security'] },
+                            { categoria: 'Databases', itens: ['PostgreSQL', 'MySQL', 'MongoDB', 'H2'] },
+                            { categoria: 'Dependency Management', itens: ['Maven'] },
+                            { categoria: 'Version Control & Tools', itens: ['Git', 'GitHub', 'Postman'] }
+                        ],
+                        softSkills: [
+                            'Teamwork', 'Communication', 'Proactivity', 'Analytical Thinking',
+                            'Resilience', 'Creativity', 'Emotional Intelligence', 'Adaptability'
+                        ],
+                        formacaoAcademica: [
+                            { curso: 'Bachelor\'s Degree in Business Administration', instituicao: 'University of Pernambuco (UPE)', periodo: 'Aug/2019 - Oct/2023', status: 'completed' },
+                            { curso: 'Technical Degree in Web Development', instituicao: 'Senai', periodo: 'Apr/2026 - Jun/2027', status: 'in progress' },
+                            { curso: 'Postgraduate Degree in Software Engineering', instituicao: 'Anhanguera', periodo: 'Aug/2026 - Feb/2027', status: 'in progress' }
+                        ],
+                        formacaoComplementar: [
+                            { nome: 'Complete Java OOP + Projects (Instructor Nelio Alves)', plataforma: 'Udemy' },
+                            { nome: 'Database Knowledge Track', plataforma: 'Fundação Bradesco' },
+                            { nome: 'Introduction to Project Management', plataforma: 'Fundação Bradesco' },
+                            { nome: 'Agile Solutions', plataforma: 'Sebrae' },
+                            { nome: 'Design Thinking', plataforma: 'Sebrae' },
+                            { nome: 'Lean Canvas', plataforma: 'Sebrae' },
+                            { nome: 'Business Model Canvas', plataforma: 'Sebrae' }
+                        ],
+                        experiencias: [
+                            { cargo: 'Administrative Assistant II', empresa: 'Sebrae PE', periodo: 'Mar/25 - Sep/25' },
+                            { cargo: 'Producer', empresa: 'Prensa Marketing', periodo: 'Oct/24 - Feb/25' },
+                            { cargo: 'Producer', empresa: 'Carla Dias Assessorias em Eventos', periodo: 'Jul/25 - Oct/25' },
+                            { cargo: 'Producer', empresa: 'Ayres Promoções e Eventos', periodo: 'Jul/25 - Oct/25' },
+                            { cargo: 'Executive Producer', empresa: 'Sebrae PE', periodo: 'Mar/24 - Jun/24' },
+                            { cargo: 'Administrative Assistant I', empresa: 'Sebrae/PE', periodo: 'Jun/23 - Mar/24' },
+                            { cargo: 'Administrative Intern', empresa: 'Sebrae PE', periodo: 'Feb/22 - Jun/23' },
+                            { cargo: 'Administrative Intern', empresa: 'University of Pernambuco', periodo: 'Nov/20 - Feb/22' }
+                        ],
+                        projetosDev: [
+                            {
+                                titulo: 'Java - Pure JPA — CRUD with EntityManager',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/main/CRUD%20-%20JPA',
+                                descricao: `Java application demonstrating CRUD operations using pure JPA with EntityManager, without frameworks like Spring. Explores JPA specifications at its core, with manual transaction control and entity lifecycle management.\nMapped entity using @Entity, @Id, and @GeneratedValue\nOperations: persist, find, update, and remove\nConcepts: EntityManagerFactory, EntityManager, transaction control, and persistence.xml\nTech Stack: Java · JPA · Hibernate · Maven\nDeveloped during the Complete Java OOP course (Nelio Alves)`
+                            },
+                            {
+                                titulo: 'Java - Spring Boot JPA — Web Services (E-commerce API)',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/jpa-spring',
+                                descricao: `E-commerce REST API built with Spring Boot and JPA/Hibernate, featuring management of users, products, categories, and orders.\nDomain model with 6 related entities (User, Order, Product, Category, Payment, OrderItem)\nREST endpoints for Users, Orders, Products, and Categories\nJPA Relationships: @ManyToOne, @OneToMany, @OneToOne, @ManyToMany, and composite key with @EmbeddedId\nError handling with @ControllerAdvice and standard HTTP responses (404, 400)\nTech Stack: Java 17 · Spring Boot · Spring Data JPA · Hibernate · Maven\nDeveloped during the Complete Java OOP course (Nelio Alves)`
+                            },
+                            {
+                                titulo: 'Java - Spring Boot MongoDB - Users & Posts API',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/mongodb',
+                                descricao: `REST API built with Spring Boot and MongoDB to manage users and posts, supporting nested comments and advanced search queries.\nFull REST endpoints for Users and Posts (GET, POST, PUT, DELETE)\nAdvanced search filtering by text and date range in MongoDB documents\nData model with nested documents (posts containing authors and comments)\nDTO pattern for clean data transfer and separation of concerns\nTech Stack: Java 17 · Spring Boot · Spring Data MongoDB · MongoDB · Maven\nDeveloped during the Complete Java OOP course (Nelio Alves)`
+                            },
+                            {
+                                titulo: 'Java - Users API - Spring Boot + JWT',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/usuarios-api',
+                                descricao: `Independent project developed to apply core backend practices using Java and Spring Boot. Manages users and tasks with authentication and authorization powered by JWT and Spring Security.\nFull auth flow: registration, login, and JWT-protected route filters\nTask CRUD tied directly to the authenticated user\nUser management with lookup by ID and email\nGlobal exception handling and DTO architecture\nCode reviewed with AI assistance as a learning catalyst to refine best practices in backend development.\nTech Stack: Java · Spring Boot · Spring Security · JWT · Spring Data JPA · PostgreSQL · Lombok · Maven`
+                            },
+                            {
+                                titulo: 'Java - Chess System - OOP',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/main/sistema-xadrez',
+                                descricao: `Complete console-based Chess game built in Java with custom CLI formatting. A comprehensive project demonstrating advanced OOP principles and complex logical rules.\n6 fully functional chess pieces (King, Queen, Rook, Bishop, Knight, Pawn)\nSpecial moves: Castling, En Passant, and Pawn Promotion\nCheck and Checkmate validation logic\nLayered architecture separating generic board logic (boardgame) from chess rules (chess)\nTech Stack: Java 17 · OOP · Maven\nDeveloped during the Complete Java OOP course (Nelio Alves)`
+                            }
+                        ],
+                        projetosMarketing: [
+                            { nome: 'Corrida do Novo', ano: '2025' },
+                            { nome: 'Celebra - Rede d\'or', ano: '2024' },
+                            { nome: 'Corrida dos Morros - Morro da Conceição', ano: '2024' },
+                            { nome: 'Public Works Handover Events & Order Signing – DER-PE', ano: '2024' },
+                            { nome: 'Agrinordeste', ano: '2024' },
+                            { nome: 'NEON - Sebrae PB', ano: '2024' },
+                            { nome: 'Feira do Empreendedor - Sebrae PE', ano: '2024' }
+                        ],
+                        idiomas: [
+                            { idioma: 'Portuguese', nivel: 'Native' },
+                            { idioma: 'English', nivel: 'Advanced' }
+                        ]
+                    }
+                };
+
+                const t = computed(() => traducoes[idiomaAtual.value]);
+
+                return {
+                    idiomaAtual,
+                    perfil,
+                    t
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
