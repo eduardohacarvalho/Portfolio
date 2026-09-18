@@ -26,7 +26,6 @@
                 <a href="#soft-skills">{{ t.nav.softSkills }}</a>
                 <a href="#contato">{{ t.nav.contato }}</a>
 
-
                 <div class="lang-switch">
                     <button class="lang-btn" :class="{ active: idiomaAtual === 'pt' }"
                         @click="idiomaAtual = 'pt'">PT</button>
@@ -259,8 +258,8 @@
                         btnRepo: 'Acessar repositório',
                         btnCv: 'Baixar CV',
                         btnCvDownload: 'Baixar Currículo em PDF',
-                        sobreP1: 'Sou <strong>Eduardo Henrique Alves de Carvalho</strong>, atuando como <strong>Desenvolvedor Backend / Full Stack Java Júnior</strong>[cite: 3]. Unifico minha base sólida em Administração pela Universidade de Pernambuco (UPE)[cite: 3] com especializações práticas em tecnologia. Atualmente, busco aprimoramento técnico cursando Pós-graduação em Engenharia de Software (Anhanguera)[cite: 3], Técnico em Informática para Internet (SENAI PE)[cite: 3] e participando da Residência Tecnológica do Porto Digital[cite: 3].',
-                        sobreP2: 'Minha vivência anterior em gestão corporativa, contratos, logística e processos no Sebrae/PE e na UPE me proporciona facilidade para entender dores de negócio, arquitetar soluções eficientes e dialogar com stakeholders[cite: 3]. No desenvolvimento, meu foco é na criação de APIs RESTful com Spring Boot, integração de bancos de dados relacionais e NoSQL, e aplicação de boas práticas de arquitetura[cite: 3].',
+                        sobreP1: 'Sou <strong>Eduardo Henrique Alves de Carvalho</strong>, atuando como <strong>Desenvolvedor Backend / Full Stack Java Júnior</strong>. Unifico minha base sólida em Administração pela Universidade de Pernambuco (UPE) com especializações práticas em tecnologia. Atualmente, busco aprimoramento técnico cursando Pós-graduação em Engenharia de Software (Anhanguera), Técnico em Informática para Internet (SENAI PE) e participando da Residência Tecnológica do Porto Digital.',
+                        sobreP2: 'Minha vivência anterior em gestão corporativa, contratos, logística e processos no Sebrae/PE e na UPE me proporciona facilidade para entender dores de negócio, arquitetar soluções eficientes e dialogar com stakeholders. No desenvolvimento, meu foco é na criação de APIs RESTful com Spring Boot, integração de bancos de dados relacionais e NoSQL, e aplicação de boas práticas de arquitetura.',
                         stacks: [
                             { categoria: 'Linguagens & Frameworks', itens: ['Java 17', 'Python', 'Spring Boot', 'Spring Data JPA', 'Hibernate', 'Spring Security'] },
                             { categoria: 'Desenvolvimento Web', itens: ['HTML5', 'CSS3', 'Bootstrap', 'Vue.js (Básico)'] },
@@ -353,27 +352,27 @@
                             {
                                 titulo: 'Java - Usuários API — Spring Boot + JWT (Autoral)',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/usuarios-api',
-                                descricao: `API REST autoral desenvolvida para gestão de usuários e tarefas com segurança robusta[cite: 3].\n• Autenticação e autorização via Spring Security e JWT (JSON Web Tokens)[cite: 3]\n• CRUD completo de tarefas vinculadas exclusivamente ao usuário autenticado[cite: 3]\n• Arquitetura em camadas com DTOs, Lombok e tratamento global de exceções (@ControllerAdvice)[cite: 3]\n• Banco de dados PostgreSQL e persistência com Spring Data JPA[cite: 3]\n• Tecnologias: Java 17 · Spring Boot · Spring Security · JWT · PostgreSQL · Maven[cite: 3]`
+                                descricao: `API REST autoral desenvolvida para gestão de usuários e tarefas com segurança robusta.\n• Autenticação e autorização via Spring Security e JWT (JSON Web Tokens)\n• CRUD completo de tarefas vinculadas exclusivamente ao usuário autenticado\n• Arquitetura em camadas com DTOs, Lombok e tratamento global de exceções (@ControllerAdvice)\n• Banco de dados PostgreSQL e persistência com Spring Data JPA\n• Tecnologias: Java 17 · Spring Boot · Spring Security · JWT · PostgreSQL · Maven`
                             },
                             {
                                 titulo: 'Java - E-commerce API — Spring Boot + JPA',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/jpa-spring',
-                                descricao: `API RESTful para sistema de e-commerce gerenciando usuários, pedidos, produtos, categorias e pagamentos[cite: 3].\n• Modelo de domínio com 6 entidades e relacionamentos complexos (@ManyToOne, @ManyToMany, @OneToOne)[cite: 3]\n• Mapeamento de chave composta com @EmbeddedId em itens de pedido[cite: 3]\n• Tratamento personalizado de exceções de banco de dados e recursos não encontrados[cite: 3]\n• Tecnologias: Java 17 · Spring Boot · Spring Data JPA · Hibernate · H2 Database · Maven[cite: 3]`
+                                descricao: `API RESTful para sistema de e-commerce gerenciando usuários, pedidos, produtos, categorias e pagamentos.\n• Modelo de domínio com 6 entidades e relacionamentos complexos (@ManyToOne, @ManyToMany, @OneToOne)\n• Mapeamento de chave composta com @EmbeddedId em itens de pedido\n• Tratamento personalizado de exceções de banco de dados e recursos não encontrados\n• Tecnologias: Java 17 · Spring Boot · Spring Data JPA · Hibernate · H2 Database · Maven`
                             },
                             {
                                 titulo: 'Java - Users & Posts API — Spring Boot + MongoDB',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/mongodb',
-                                descricao: `API REST integrada a banco NoSQL para gerenciamento de usuários e posts com suporte a comentários[cite: 3].\n• Consultas avançadas utilizando suporte a queries personalizadas e filtros por intervalo de datas no MongoDB[cite: 3]\n• Estruturação de documentos aninhados para otimização de leitura NoSQL[cite: 3]\n• Tecnologias: Java 17 · Spring Boot · Spring Data MongoDB · MongoDB · Maven[cite: 3]`
+                                descricao: `API REST integrada a banco NoSQL para gerenciamento de usuários e posts com suporte a comentários.\n• Consultas avançadas utilizando suporte a queries personalizadas e filtros por intervalo de datas no MongoDB\n• Estruturação de documentos aninhados para otimização de leitura NoSQL\n• Tecnologias: Java 17 · Spring Boot · Spring Data MongoDB · MongoDB · Maven`
                             },
                             {
                                 titulo: 'Java - JPA Puro — CRUD com EntityManager',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/main/CRUD%20-%20JPA',
-                                descricao: `Projeto focado no funcionamento interno da especificação JPA sem abstrações do Spring Data[cite: 3].\n• Controle manual do ciclo de vida de entidades e transações com EntityManager[cite: 3]\n• Configuração explícita de mapeamento de entidades e persistence.xml[cite: 3]\n• Tecnologias: Java · JPA · Hibernate · Maven[cite: 3]`
+                                descricao: `Projeto focado no funcionamento interno da especificação JPA sem abstrações do Spring Data.\n• Controle manual do ciclo de vida de entidades e transações com EntityManager\n• Configuração explícita de mapeamento de entidades e persistence.xml\n• Tecnologias: Java · JPA · Hibernate · Maven`
                             },
                             {
                                 titulo: 'Java - Sistema de Xadrez — POO & Terminal',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/main/sistema-xadrez',
-                                descricao: `Aplicação executada via terminal que demonstra domínio avançado de Programação Orientada a Objetos[cite: 3].\n• Implementação de regras complexas: Roque, En Passant, Promoção e validação de Xeque/Xeque-mate[cite: 3]\n• Arquitetura bem definida separando a camada da matriz do tabuleiro das regras específicas do xadrez[cite: 3]\n• Tecnologias: Java 17 · POO · Maven[cite: 3]`
+                                descricao: `Aplicação executada via terminal que demonstra domínio avançado de Programação Orientada a Objetos.\n• Implementação de regras complexas: Roque, En Passant, Promoção e validação de Xeque/Xeque-mate\n• Arquitetura bem definida separando a camada da matriz do tabuleiro das regras específicas do xadrez\n• Tecnologias: Java 17 · POO · Maven`
                             }
                         ],
                         projetosMarketing: [
@@ -418,8 +417,8 @@
                         btnRepo: 'Access repository',
                         btnCv: 'Download CV',
                         btnCvDownload: 'Download Resume (PDF)',
-                        sobreP1: 'I am <strong>Eduardo Henrique Alves de Carvalho</strong>, currently focused on transitioning to a <strong>Junior Java / Backend Developer</strong> role[cite: 3]. I combine a solid Business Administration background from the University of Pernambuco (UPE)[cite: 3] with practical IT specializations. To deepen my technical expertise, I am pursuing a Postgraduate degree in Software Engineering (Anhanguera)[cite: 3], a Technical Degree in Web Development (SENAI PE)[cite: 3], and participating in Porto Digital\'s Tech Residency[cite: 3].',
-                        sobreP2: 'My solid background in corporate management, contract administration, and process optimization at Sebrae/PE gives me a unique advantage in understanding business requirements and architecting effective software solutions[cite: 3]. Technically, my focus is on building RESTful APIs with Spring Boot, integrating relational and NoSQL databases, and applying clean code principles[cite: 3].',
+                        sobreP1: 'I am <strong>Eduardo Henrique Alves de Carvalho</strong>, currently focused on transitioning to a <strong>Junior Java / Backend Developer</strong> role. I combine a solid Business Administration background from the University of Pernambuco (UPE) with practical IT specializations. To deepen my technical expertise, I am pursuing a Postgraduate degree in Software Engineering (Anhanguera), a Technical Degree in Web Development (SENAI PE), and participating in Porto Digital\'s Tech Residency.',
+                        sobreP2: 'My solid background in corporate management, contract administration, and process optimization at Sebrae/PE gives me a unique advantage in understanding business requirements and architecting effective software solutions. Technically, my focus is on building RESTful APIs with Spring Boot, integrating relational and NoSQL databases, and applying clean code principles.',
                         stacks: [
                             { categoria: 'Languages & Frameworks', itens: ['Java 17', 'Python', 'Spring Boot', 'Spring Data JPA', 'Hibernate', 'Spring Security'] },
                             { categoria: 'Web Development', itens: ['HTML5', 'CSS3', 'Bootstrap', 'Vue.js (Basic)'] },
@@ -512,27 +511,27 @@
                             {
                                 titulo: 'Java - Users API — Spring Boot + JWT (Personal)',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/usuarios-api',
-                                descricao: `Personal REST API developed to practice core backend and security principles[cite: 3].\n• Authentication & Authorization powered by Spring Security and JWT[cite: 3]\n• Task CRUD operations associated with authenticated users[cite: 3]\n• Layered architecture using DTOs, Lombok, and global exception handling (@ControllerAdvice)[cite: 3]\n• PostgreSQL database integration via Spring Data JPA[cite: 3]\n• Tech Stack: Java 17 · Spring Boot · Spring Security · JWT · PostgreSQL · Maven[cite: 3]`
+                                descricao: `Personal REST API developed to practice core backend and security principles.\n• Authentication & Authorization powered by Spring Security and JWT\n• Task CRUD operations associated with authenticated users\n• Layered architecture using DTOs, Lombok, and global exception handling (@ControllerAdvice)\n• PostgreSQL database integration via Spring Data JPA\n• Tech Stack: Java 17 · Spring Boot · Spring Security · JWT · PostgreSQL · Maven`
                             },
                             {
                                 titulo: 'Java - E-commerce API — Spring Boot + JPA',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/jpa-spring',
-                                descricao: `REST API for an e-commerce platform managing users, orders, products, categories, and payments[cite: 3].\n• Domain model featuring 6 related entities (@ManyToOne, @ManyToMany, @OneToOne)[cite: 3]\n• Composite primary keys using @EmbeddedId for order items[cite: 3]\n• Customized exception handling for resource management[cite: 3]\n• Tech Stack: Java 17 · Spring Boot · Spring Data JPA · Hibernate · H2 Database · Maven[cite: 3]`
+                                descricao: `REST API for an e-commerce platform managing users, orders, products, categories, and payments.\n• Domain model featuring 6 related entities (@ManyToOne, @ManyToMany, @OneToOne)\n• Composite primary keys using @EmbeddedId for order items\n• Customized exception handling for resource management\n• Tech Stack: Java 17 · Spring Boot · Spring Data JPA · Hibernate · H2 Database · Maven`
                             },
                             {
                                 titulo: 'Java - Users & Posts API — Spring Boot + MongoDB',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/mongodb',
-                                descricao: `REST API integrated with NoSQL database for managing users and posts with nested comments[cite: 3].\n• Advanced text search and date range filtering queries in MongoDB[cite: 3]\n• Optimized document embedding patterns for NoSQL reads[cite: 3]\n• Tech Stack: Java 17 · Spring Boot · Spring Data MongoDB · MongoDB · Maven[cite: 3]`
+                                descricao: `REST API integrated with NoSQL database for managing users and posts with nested comments.\n• Advanced text search and date range filtering queries in MongoDB\n• Optimized document embedding patterns for NoSQL reads\n• Tech Stack: Java 17 · Spring Boot · Spring Data MongoDB · MongoDB · Maven`
                             },
                             {
                                 titulo: 'Java - Pure JPA — CRUD with EntityManager',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/main/CRUD%20-%20JPA',
-                                descricao: `Core JPA project built without Spring Data framework abstractions[cite: 3].\n• Manual transaction and entity lifecycle control using EntityManager[cite: 3]\n• Explicit XML persistence configuration[cite: 3]\n• Tech Stack: Java · JPA · Hibernate · Maven[cite: 3]`
+                                descricao: `Core JPA project built without Spring Data framework abstractions.\n• Manual transaction and entity lifecycle control using EntityManager\n• Explicit XML persistence configuration\n• Tech Stack: Java · JPA · Hibernate · Maven`
                             },
                             {
                                 titulo: 'Java - Chess System — OOP & Console',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/main/sistema-xadrez',
-                                descricao: `Console application showcasing advanced Object-Oriented Programming rules[cite: 3].\n• Implementation of complex chess rules: Castling, En Passant, Promotion, Check/Checkmate[cite: 3]\n• Layered architecture separating board matrix mechanics from chess game logic[cite: 3]\n• Tech Stack: Java 17 · OOP · Maven[cite: 3]`
+                                descricao: `Console application showcasing advanced Object-Oriented Programming rules.\n• Implementation of complex chess rules: Castling, En Passant, Promotion, Check/Checkmate\n• Layered architecture separating board matrix mechanics from chess game logic\n• Tech Stack: Java 17 · OOP · Maven`
                             }
                         ],
                         projetosMarketing: [
