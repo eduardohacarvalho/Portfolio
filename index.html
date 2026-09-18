@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eduardo Carvalho - Portfólio</title>
+    <meta name="description" content="Portfólio e Currículo Profissional de Eduardo Carvalho - Desenvolvedor Backend / Full Stack Java.">
+    <title>Eduardo Carvalho - Portfólio & Currículo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link href="style.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -19,13 +19,16 @@
             <h1>{{ perfil.nome.split(' ')[0] }} <span>{{ perfil.nome.split(' ')[1] }}</span></h1>
             <nav>
                 <a href="#sobre">{{ t.nav.sobre }}</a>
-                <a href="#contato">{{ t.nav.contato }}</a>
                 <a href="#stacks">{{ t.nav.stacks }}</a>
-                <a href="#soft-skills">{{ t.nav.softSkills }}</a>
-                <a href="#formacao">{{ t.nav.formacao }}</a>
-                <a href="#experiencia">{{ t.nav.experiencia }}</a>
                 <a href="#projetos">{{ t.nav.projetos }}</a>
-                <a href="#idiomas">{{ t.nav.idiomas }}</a>
+                <a href="#experiencia">{{ t.nav.experiencia }}</a>
+                <a href="#formacao">{{ t.nav.formacao }}</a>
+                <a href="#soft-skills">{{ t.nav.softSkills }}</a>
+                <a href="#contato">{{ t.nav.contato }}</a>
+
+                <a href="assets/curriculo-eduardo-carvalho.pdf" download target="_blank" class="btn-cv-download">
+                    📄 {{ t.btnCv }}
+                </a>
 
                 <div class="lang-switch">
                     <button class="lang-btn" :class="{ active: idiomaAtual === 'pt' }"
@@ -37,6 +40,7 @@
         </header>
 
         <main>
+            <!-- 1. SOBRE MIM -->
             <section id="sobre">
                 <h2>{{ t.secoes.sobre }}</h2>
                 <div class="profile-container">
@@ -44,10 +48,91 @@
                     <div class="profile-text">
                         <p v-html="t.sobreP1"></p>
                         <p v-html="t.sobreP2"></p>
+                        <p class="location-badge">Localidade: {{ perfil.localizacao }} <br /> Nascimento: {{ perfil.nascimento }}</p>
                     </div>
                 </div>
             </section>
 
+            <!-- 2. TECNOLOGIAS E STACKS -->
+            <section id="stacks">
+                <h2>{{ t.secoes.stacks }}</h2>
+                <div class="stacks-grid">
+                    <div v-for="(stack, index) in t.stacks" :key="index" class="stack-card">
+                        <h3>{{ stack.categoria }}</h3>
+                        <div class="tags-container">
+                            <span v-for="(tech, tIndex) in stack.itens" :key="tIndex" class="tag">{{ tech }}</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. PROJETOS DEV -->
+            <section id="projetos">
+                <h2>{{ t.secoes.projetosDev }}</h2>
+                <div v-for="(proj, index) in t.projetosDev" :key="index" class="project-card">
+                    <div class="project-header">
+                        <span class="project-title">{{ proj.titulo }}</span>
+                        <a :href="proj.link" target="_blank" class="btn-link">{{ t.btnRepo }} &rarr;</a>
+                    </div>
+                    <p class="project-desc" style="white-space: pre-line;">{{ proj.descricao }}</p>
+                </div>
+
+                <h2 style="margin-top: 2.5rem;">{{ t.secoes.projetosMarketing }}</h2>
+                <ul class="simple-list">
+                    <li v-for="(proj, index) in t.projetosMarketing" :key="index">
+                        <span class="list-item-title">{{ proj.nome }}</span> &bull; {{ proj.ano }}
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 4. EXPERIÊNCIA PROFISSIONAL -->
+            <section id="experiencia">
+                <h2>{{ t.secoes.experiencia }}</h2>
+                <div class="experience-list">
+                    <div v-for="(exp, index) in t.experiencias" :key="index" class="experience-item">
+                        <h3 class="exp-title">
+                            {{ exp.cargo }} <span class="exp-company">| {{ exp.empresa }}</span>
+                        </h3>
+                        <span class="exp-period">{{ exp.periodo }}</span>
+                        <p v-if="exp.descricao" class="exp-desc">{{ exp.descricao }}</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. FORMAÇÃO ACADÊMICA E COMPLEMENTAR -->
+            <section id="formacao">
+                <h2>{{ t.secoes.formacaoAcademica }}</h2>
+                <ul class="simple-list">
+                    <li v-for="(item, index) in t.formacaoAcademica" :key="index">
+                        <span class="list-item-title">{{ item.curso }}</span> &bull; {{ item.instituicao }} &bull; {{ item.periodo }} ({{ item.status }})
+                    </li>
+                </ul>
+
+                <h2 style="margin-top: 2.5rem;">{{ t.secoes.formacaoComplementar }}</h2>
+                <ul class="simple-list">
+                    <li v-for="(item, index) in t.formacaoComplementar" :key="index">
+                        <span class="list-item-title">{{ item.nome }}</span> &bull; {{ item.plataforma }}
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 6. SOFT SKILLS E IDIOMAS -->
+            <section id="soft-skills">
+                <h2>{{ t.secoes.softSkills }}</h2>
+                <div class="tags-container" style="margin-bottom: 2rem;">
+                    <span v-for="(skill, index) in t.softSkills" :key="index" class="tag">{{ skill }}</span>
+                </div>
+
+                <h2>{{ t.secoes.idiomas }}</h2>
+                <div class="languages-grid">
+                    <div v-for="(lang, index) in t.idiomas" :key="index" class="language-card">
+                        <span class="lang-title">{{ lang.idioma }}</span>
+                        <span class="lang-level">{{ lang.nivel }}</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. CONTATO -->
             <section id="contato">
                 <h2>{{ t.secoes.contato }}</h2>
                 <div class="contacts-grid">
@@ -121,80 +206,6 @@
                     </a>
                 </div>
             </section>
-
-            <section id="stacks">
-                <h2>{{ t.secoes.stacks }}</h2>
-                <div class="stacks-grid">
-                    <div v-for="(stack, index) in t.stacks" :key="index" class="stack-card">
-                        <h3>{{ stack.categoria }}</h3>
-                        <div class="tags-container">
-                            <span v-for="(tech, tIndex) in stack.itens" :key="tIndex" class="tag">{{ tech }}</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="soft-skills">
-                <h2>{{ t.secoes.softSkills }}</h2>
-                <div class="tags-container">
-                    <span v-for="(skill, index) in t.softSkills" :key="index" class="tag">{{ skill }}</span>
-                </div>
-            </section>
-
-            <section id="formacao">
-                <h2>{{ t.secoes.formacaoAcademica }}</h2>
-                <ul class="simple-list">
-                    <li v-for="(item, index) in t.formacaoAcademica" :key="index">
-                        <span class="list-item-title">{{ item.curso }}</span> &bull; {{ item.instituicao }} &bull; {{
-                        item.periodo }} ({{ item.status }})
-                    </li>
-                </ul>
-
-                <h2 style="margin-top: 2rem;">{{ t.secoes.formacaoComplementar }}</h2>
-                <ul class="simple-list">
-                    <li v-for="(item, index) in t.formacaoComplementar" :key="index">
-                        <span class="list-item-title">{{ item.nome }}</span> &bull; {{ item.plataforma }}
-                    </li>
-                </ul>
-            </section>
-
-            <section id="experiencia">
-                <h2>{{ t.secoes.experiencia }}</h2>
-                <ul class="simple-list">
-                    <li v-for="(exp, index) in t.experiencias" :key="index">
-                        <span class="list-item-title">{{ exp.cargo }}</span> &bull; {{ exp.empresa }} ({{ exp.periodo
-                        }})
-                    </li>
-                </ul>
-            </section>
-
-            <section id="projetos">
-                <h2>{{ t.secoes.projetosDev }}</h2>
-                <div v-for="(proj, index) in t.projetosDev" :key="index" class="project-card">
-                    <div class="project-header">
-                        <span class="project-title">{{ proj.titulo }}</span>
-                        <a :href="proj.link" target="_blank" class="btn-link">{{ t.btnRepo }} &rarr;</a>
-                    </div>
-                    <p class="project-desc">{{ proj.descricao }}</p>
-                </div>
-
-                <h2 style="margin-top: 2rem;">{{ t.secoes.projetosMarketing }}</h2>
-                <ul class="simple-list">
-                    <li v-for="(proj, index) in t.projetosMarketing" :key="index">
-                        <span class="list-item-title">{{ proj.nome }}</span> &bull; {{ proj.ano }}
-                    </li>
-                </ul>
-            </section>
-
-            <section id="idiomas">
-                <h2>{{ t.secoes.idiomas }}</h2>
-                <div class="languages-grid">
-                    <div v-for="(lang, index) in t.idiomas" :key="index" class="language-card">
-                        <span class="lang-title">{{ lang.idioma }}</span>
-                        <span class="lang-level">{{ lang.nivel }}</span>
-                    </div>
-                </div>
-            </section>
         </main>
 
         <footer>
@@ -221,6 +232,7 @@
                     nome: 'Eduardo Carvalho',
                     nomeCompleto: 'Eduardo Henrique Alves de Carvalho',
                     nascimento: '01/10/2000',
+                    localizacao: 'Recife - PE, Brasil',
                     foto: 'assets/eu.png'
                 });
 
@@ -228,13 +240,12 @@
                     pt: {
                         nav: {
                             sobre: 'Sobre',
-                            contato: 'Contato',
                             stacks: 'Tecnologias',
-                            softSkills: 'Soft Skills',
-                            formacao: 'Formação',
-                            experiencia: 'Experiência',
                             projetos: 'Projetos',
-                            idiomas: 'Idiomas'
+                            experiencia: 'Experiência',
+                            formacao: 'Formação',
+                            softSkills: 'Soft Skills',
+                            contato: 'Contato'
                         },
                         secoes: {
                             sobre: 'Sobre mim',
@@ -244,90 +255,142 @@
                             formacaoAcademica: 'Formação Acadêmica',
                             formacaoComplementar: 'Formação Complementar',
                             experiencia: 'Experiência Profissional',
-                            projetosDev: 'Projetos Acadêmicos de Desenvolvimento',
-                            projetosMarketing: 'Projetos de Marketing Promocional com Experiência do Cliente',
+                            projetosDev: 'Projetos Acadêmicos & Autorais de Desenvolvimento',
+                            projetosMarketing: 'Projetos de Marketing Promocional & Eventos',
                             idiomas: 'Idiomas'
                         },
                         btnRepo: 'Acessar repositório',
-                        sobreP1: 'Sou <strong>Eduardo Henrique Alves de Carvalho</strong>, pernambucano, nascido em 01/10/2000. Atuo como <strong>desenvolvedor Full Stack</strong> em transição de carreira, combinando minha formação em Administração pela Universidade de Pernambuco com especializações em tecnologia. Atualmente, estou cursando pós-graduação em Engenharia de Software na Anhanguera e formação técnica em Informática para Internet no Senai, com residência tecnológica no Porto Digital.',
-                        sobreP2: 'Tenho experiência consolidada no mercado, atuando em funções administrativas no Sebrae e na UPE, além de vivência em agências de marketing e eventos. Minha atuação é centrada no desenvolvimento de soluções completas, na gestão de processos, projetos e equipes, sempre com foco em alta performance e na experiência do cliente.',
+                        btnCv: 'Baixar CV',
+                        btnCvDownload: 'Baixar Currículo em PDF',
+                        sobreP1: 'Sou <strong>Eduardo Henrique Alves de Carvalho</strong>, atuando como <strong>Desenvolvedor Backend / Full Stack Java Júnior</strong>[cite: 3]. Unifico minha base sólida em Administração pela Universidade de Pernambuco (UPE)[cite: 3] com especializações práticas em tecnologia. Atualmente, busco aprimoramento técnico cursando Pós-graduação em Engenharia de Software (Anhanguera)[cite: 3], Técnico em Informática para Internet (SENAI PE)[cite: 3] e participando da Residência Tecnológica do Porto Digital[cite: 3].',
+                        sobreP2: 'Minha vivência anterior em gestão corporativa, contratos, logística e processos no Sebrae/PE e na UPE me proporciona facilidade para entender dores de negócio, arquitetar soluções eficientes e dialogar com stakeholders[cite: 3]. No desenvolvimento, meu foco é na criação de APIs RESTful com Spring Boot, integração de bancos de dados relacionais e NoSQL, e aplicação de boas práticas de arquitetura[cite: 3].',
                         stacks: [
-                            { categoria: 'Linguagens & Frameworks', itens: ['Java', 'Python', 'Spring Boot', 'JPA', 'Hibernate', 'Spring Security'] },
-                            { categoria: 'Desenvolvimento Web', itens: ['HTML', 'CSS', 'Bootstrap'] },
+                            { categoria: 'Linguagens & Frameworks', itens: ['Java 17', 'Python', 'Spring Boot', 'Spring Data JPA', 'Hibernate', 'Spring Security'] },
+                            { categoria: 'Desenvolvimento Web', itens: ['HTML5', 'CSS3', 'Bootstrap', 'Vue.js (Básico)'] },
                             { categoria: 'Segurança & Autenticação', itens: ['JWT (JSON Web Token)', 'Spring Security'] },
-                            { categoria: 'Bancos de Dados', itens: ['PostgreSQL', 'MySQL', 'MongoDB', 'H2'] },
-                            { categoria: 'Gerenciamento de Dependências', itens: ['Maven'] },
-                            { categoria: 'Controle de Versão & Ferramentas', itens: ['Git', 'GitHub', 'Postman'] }
+                            { categoria: 'Bancos de Dados', itens: ['PostgreSQL', 'MySQL', 'MongoDB', 'H2 Database'] },
+                            { categoria: 'Gerenciamento & Build', itens: ['Maven'] },
+                            { categoria: 'Ferramentas & Versionamento', itens: ['Git', 'GitHub', 'Postman', 'Docker (Básico)'] }
                         ],
                         softSkills: [
-                            'Trabalho em equipe', 'Comunicativo', 'Proativo', 'Analítico',
-                            'Resiliente', 'Criativo', 'Inteligência emocional', 'Adaptabilidade'
+                            'Comunicação assertiva', 'Visão de processos & negócios', 'Trabalho em equipe', 
+                            'Resolução de problemas', 'Proatividade', 'Pensamento analítico', 'Resiliência', 'Adaptabilidade'
                         ],
                         formacaoAcademica: [
-                            { curso: 'Bacharelado em Administração', instituicao: 'Universidade de Pernambuco (UPE)', periodo: 'Agosto/2019 - Outubro/2023', status: 'concluído' },
-                            { curso: 'Técnico em Informática para Internet', instituicao: 'Senai', periodo: 'Abril/2026 - Junho/2027', status: 'em andamento' },
-                            { curso: 'Pós-graduação em Engenharia de Software', instituicao: 'Anhanguera', periodo: 'Agosto/2026 - Fevereiro/2027', status: 'em andamento' }
+                            { curso: 'Bacharelado em Administração', instituicao: 'Universidade de Pernambuco (UPE)', periodo: 'Ago/2019 - Out/2023', status: 'Concluído' },
+                            { curso: 'Técnico em Informática para Internet', instituicao: 'SENAI PE', periodo: 'Abr/2026 - Out/2027', status: 'Em andamento' },
+                            { curso: 'Pós-graduação em Engenharia de Software', instituicao: 'Anhanguera Educacional', periodo: 'Ago/2026 - Fev/2027', status: 'Em andamento' }
                         ],
                         formacaoComplementar: [
-                            { nome: 'Java Completo com Programação Orientada a Objetos(POO) + Projetos (Instrutor Nelio Alves)', plataforma: 'Udemy' },
+                            { nome: 'Introdução à Lei Brasileira de Proteção de Dados Pessoais (LGPD)', plataforma: 'Escola Nacional de Administração Pública (Enap)' },
+                            { nome: 'Web Data Science com Python', plataforma: 'SENAI PE' },
+                            { nome: 'Java COMPLETO Programação Orientada a Objetos + Projetos', plataforma: 'Udemy (Instrutor Nelio Alves)' },
                             { nome: 'Trilha de Conhecimento em Banco de Dados', plataforma: 'Fundação Bradesco' },
                             { nome: 'Introdução à Gestão de Projetos', plataforma: 'Fundação Bradesco' },
-                            { nome: 'Soluções Ágeis', plataforma: 'Sebrae' },
-                            { nome: 'Design thinking', plataforma: 'Sebrae' },
-                            { nome: 'Lean Canvas', plataforma: 'Sebrae' },
-                            { nome: 'Modelo de Negócios', plataforma: 'Sebrae' }
+                            { nome: 'Soluções Ágeis & Metodologias', plataforma: 'Sebrae' },
+                            { nome: 'Design Thinking & Lean Canvas', plataforma: 'Sebrae' }
                         ],
                         experiencias: [
-                            { cargo: 'Promotor de Vendas', empresa: 'Jet Brasil', periodo: 'jul/26' },
-                            { cargo: 'Agente Logístico', empresa: 'Jet Brasil', periodo: 'jun/26 - jul/26' },
-                            { cargo: 'Assistente Administrativo II', empresa: 'Sebrae PE', periodo: 'mar/25 - set/25' },
-                            { cargo: 'Produtor', empresa: 'Prensa Marketing', periodo: 'out/24 - fev/25' },
-                            { cargo: 'Produtor', empresa: 'Carla Dias Assessorias em Eventos', periodo: 'jul/25 - out/25' },
-                            { cargo: 'Produtor', empresa: 'Ayres Promoções e Eventos', periodo: 'jul/25 - out/25' },
-                            { cargo: 'Produtor Executivo', empresa: 'Sebrae PE', periodo: 'mar/24 - jun/24' },
-                            { cargo: 'Assistente Administrativo I', empresa: 'Sebrae/PE', periodo: 'jun/23 - mar/24' },
-                            { cargo: 'Estagiário', empresa: 'Sebrae PE', periodo: 'fev/22 - jun/23' },
-                            { cargo: 'Estagiário', empresa: 'Universidade de Pernambuco', periodo: 'nov/20 - fev/22' }
+                            {
+                                cargo: 'Promotor de Vendas',
+                                empresa: 'Jet Brasil',
+                                periodo: 'Ago/2026 - Presente',
+                                descricao: 'Atendimento direto ao cliente, apresentação do portfólio de soluções de micromobilidade urbana e negociação de pacotes.'
+                            },
+                            {
+                                cargo: 'Agente Logístico',
+                                empresa: 'Jet Brasil',
+                                periodo: 'Jul/2026 - Ago/2026',
+                                descricao: 'Monitoramento operacional da frota de patinetes elétricos, controle logístico para troca de baterias e remanejamento estratégico de unidades.'
+                            },
+                            {
+                                cargo: 'Residente Tecnológico (Kick Off)',
+                                empresa: 'Porto Digital',
+                                periodo: 'Abr/2026 - Jul/2026',
+                                descricao: 'Imersão prática no ecossistema de inovação do Porto Digital, desenvolvendo projetos com metodologias ágeis e foco em desafios reais do mercado.'
+                            },
+                            {
+                                cargo: 'Assessoria Logística',
+                                empresa: 'Fundação Cultural Guararapes - FUNDAJG',
+                                periodo: 'Abr/2025 - Nov/2025',
+                                descricao: 'Gestão da logística operacional da PNAB (Plano Nacional Aldir Blanc). Acompanhamento de execução técnica de projetos culturais e suporte em prestações de contas.'
+                            },
+                            {
+                                cargo: 'Assistente Administrativo II',
+                                empresa: 'Sebrae PE',
+                                periodo: 'Mar/2025 - Set/2025',
+                                descricao: 'Gestão patrimonial, controle de depreciação e movimentação de bens. Acompanhamento de chamados de manutenção, gestão de contratos e apoio em rotinas ESG.'
+                            },
+                            {
+                                cargo: 'Produtor de Eventos',
+                                empresa: 'Prensa Marketing',
+                                periodo: 'Out/2024 - Fev/2025',
+                                descricao: 'Coordenação operacional de eventos corporativos de grande porte (Ademi, Rede D\'Or, Novo Atacarejo). Gestão de orçamentos, fornecedores e cronogramas.'
+                            },
+                            {
+                                cargo: 'Produtor Executivo - Feira do Empreendedor',
+                                empresa: 'Sebrae PE',
+                                periodo: 'Mar/2024 - Jun/2024',
+                                descricao: 'Coordenação operacional e logística da Feira do Empreendedor Sebrae/PE 2024. Gestão de fornecedores, acompanhamento de squads de trabalho e fiscalização de contratos.'
+                            },
+                            {
+                                cargo: 'Assistente Administrativo I',
+                                empresa: 'Sebrae PE',
+                                periodo: 'Jun/2023 - Mar/2024',
+                                descricao: 'Gestão de frotas institucionais, cotação e emissão de passagens e diárias. Acompanhamento de processos licitatórios e suporte a sistemas gerenciais.'
+                            },
+                            {
+                                cargo: 'Estagiário de Administração',
+                                empresa: 'Sebrae PE',
+                                periodo: 'Fev/2022 - Jun/2023',
+                                descricao: 'Suporte à gerência em processos administrativos, controle de contratos com terceiros, elaboração de relatórios e suporte a rotinas de sustentabilidade/ESG.'
+                            },
+                            {
+                                cargo: 'Estagiário de Finanças',
+                                empresa: 'Universidade de Pernambuco (UPE)',
+                                periodo: 'Nov/2020 - Fev/2022',
+                                descricao: 'Atuação no setor financeiro da FCAP/UPE. Organização de notas fiscais, auxílio na prestação de contas de recursos públicos e controle orçamentário.'
+                            }
                         ],
                         projetosDev: [
                             {
+                                titulo: 'Java - Usuários API — Spring Boot + JWT (Autoral)',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/usuarios-api',
+                                descricao: `API REST autoral desenvolvida para gestão de usuários e tarefas com segurança robusta[cite: 3].\n• Autenticação e autorização via Spring Security e JWT (JSON Web Tokens)[cite: 3]\n• CRUD completo de tarefas vinculadas exclusivamente ao usuário autenticado[cite: 3]\n• Arquitetura em camadas com DTOs, Lombok e tratamento global de exceções (@ControllerAdvice)[cite: 3]\n• Banco de dados PostgreSQL e persistência com Spring Data JPA[cite: 3]\n• Tecnologias: Java 17 · Spring Boot · Spring Security · JWT · PostgreSQL · Maven[cite: 3]`
+                            },
+                            {
+                                titulo: 'Java - E-commerce API — Spring Boot + JPA',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/jpa-spring',
+                                descricao: `API RESTful para sistema de e-commerce gerenciando usuários, pedidos, produtos, categorias e pagamentos[cite: 3].\n• Modelo de domínio com 6 entidades e relacionamentos complexos (@ManyToOne, @ManyToMany, @OneToOne)[cite: 3]\n• Mapeamento de chave composta com @EmbeddedId em itens de pedido[cite: 3]\n• Tratamento personalizado de exceções de banco de dados e recursos não encontrados[cite: 3]\n• Tecnologias: Java 17 · Spring Boot · Spring Data JPA · Hibernate · H2 Database · Maven[cite: 3]`
+                            },
+                            {
+                                titulo: 'Java - Users & Posts API — Spring Boot + MongoDB',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/mongodb',
+                                descricao: `API REST integrada a banco NoSQL para gerenciamento de usuários e posts com suporte a comentários[cite: 3].\n• Consultas avançadas utilizando suporte a queries personalizadas e filtros por intervalo de datas no MongoDB[cite: 3]\n• Estruturação de documentos aninhados para otimização de leitura NoSQL[cite: 3]\n• Tecnologias: Java 17 · Spring Boot · Spring Data MongoDB · MongoDB · Maven[cite: 3]`
+                            },
+                            {
                                 titulo: 'Java - JPA Puro — CRUD com EntityManager',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/main/CRUD%20-%20JPA',
-                                descricao: `Aplicação Java demonstrando operações de CRUD utilizando JPA puro com EntityManager, sem frameworks como Spring. O projeto explora o funcionamento da especificação JPA na sua forma mais fundamental, com controle manual de transações e ciclo de vida das entidades.\nEntidade mapeada com @Entity, @Id e @GeneratedValue\nOperações: persist, find, update e remove\nConceitos: EntityManagerFactory, EntityManager, controle de transações e persistence.xml\nTecnologias: Java · JPA · Hibernate · Maven\nDesenvolvido durante o curso Java COMPLETO — POO + Projetos (Nelio Alves)`
+                                descricao: `Projeto focado no funcionamento interno da especificação JPA sem abstrações do Spring Data[cite: 3].\n• Controle manual do ciclo de vida de entidades e transações com EntityManager[cite: 3]\n• Configuração explícita de mapeamento de entidades e persistence.xml[cite: 3]\n• Tecnologias: Java · JPA · Hibernate · Maven[cite: 3]`
                             },
                             {
-                                titulo: 'Java - Spring Boot JPA — Web Services (E-commerce API)',
-                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/jpa-spring',
-                                descricao: `API REST de e-commerce desenvolvida com Spring Boot e JPA/Hibernate, com gerenciamento completo de usuários, produtos, categorias e pedidos.\nModelo de domínio com 6 entidades relacionadas (User, Order, Product, Category, Payment, OrderItem)\nEndpoints REST para Users, Orders, Products e Categories\nRelacionamentos JPA: @ManyToOne, @OneToMany, @OneToOne, @ManyToMany e chave composta com @EmbeddedId\nTratamento de erros com @ControllerAdvice e respostas padronizadas (404, 400)\nTecnologias: Java 17 · Spring Boot · Spring Data JPA · Hibernate · Maven\nDesenvolvido durante o curso Java COMPLETO — POO + Projetos (Nelio Alves)`
-                            },
-                            {
-                                titulo: 'Java - Spring Boot MongoDB - Users & Posts API',
-                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/mongodb',
-                                descricao: `API REST desenvolvida com Spring Boot e MongoDB para gerenciamento de usuários e posts com suporte a comentários e busca avançada.\nEndpoints REST completos para Users e Posts (GET, POST, PUT, DELETE)\nBusca avançada com filtro por texto e intervalo de datas em documentos MongoDB\nModelo de dados com documentos aninhados (posts com autor e comentários embutidos)\nDTOs para transferência de dados e separação de responsabilidades\nTecnologias: Java 17 · Spring Boot · Spring Data MongoDB · MongoDB · Maven\nDesenvolvido durante o curso Java COMPLETO — POO + Projetos (Nelio Alves)`
-                            },
-                            {
-                                titulo: 'Java - Usuários API - Spring Boot + JWT',
-                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/usuarios-api',
-                                descricao: `Projeto autoral desenvolvido de forma independente para consolidar na prática os conhecimentos adquiridos em Java e Spring Boot. A API gerencia usuários e tarefas com autenticação e autorização completas via JWT e Spring Security.\nFluxo completo de autenticação: registro, login e proteção de rotas com JWT\nCRUD de tarefas vinculadas ao usuário autenticado\nGestão de usuários com busca por ID e e-mail\nTratamento global de erros e separação de responsabilidades com DTOs\nO código foi revisado com apoio de IA como ferramenta de aprendizado — prática que acelera a identificação de melhorias e reforça boas práticas de desenvolvimento Backend.\nTecnologias: Java · Spring Boot · Spring Security · JWT · Spring Data JPA · PostgreSQL · Lombok · Maven`
-                            },
-                            {
-                                titulo: 'Java - Jogo de Xadrez - POO',
+                                titulo: 'Java - Sistema de Xadrez — POO & Terminal',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/main/sistema-xadrez',
-                                descricao: `Jogo de xadrez completo desenvolvido em Java, executado via terminal com interface colorida. Um dos projetos mais desafiadores para demonstrar domínio de POO e lógica de programação.\n6 peças implementadas com regras completas (Rei, Dama, Torre, Bispo, Cavalo e Peão)\nMovimentos especiais: Roque, En Passant e Promoção do Peão\nDetecção de cheque e xeque-mate\nArquitetura em camadas separando lógica genérica do tabuleiro (boardgame) da lógica específica do xadrez (chess)\nTecnologias: Java 17 · POO · Maven\nDesenvolvido durante o curso Java COMPLETO — POO + Projetos (Nelio Alves)`
+                                descricao: `Aplicação executada via terminal que demonstra domínio avançado de Programação Orientada a Objetos[cite: 3].\n• Implementação de regras complexas: Roque, En Passant, Promoção e validação de Xeque/Xeque-mate[cite: 3]\n• Arquitetura bem definida separando a camada da matriz do tabuleiro das regras específicas do xadrez[cite: 3]\n• Tecnologias: Java 17 · POO · Maven[cite: 3]`
                             }
                         ],
                         projetosMarketing: [
                             { nome: 'Corrida do Novo', ano: '2025' },
-                            { nome: 'Celebra - Rede d\'or', ano: '2024' },
+                            { nome: 'Celebra - Rede d\'Or', ano: '2024' },
                             { nome: 'Corrida dos Morros - Morro da Conceição', ano: '2024' },
-                            { nome: 'Eventos de Entrega de Obras e Assinatura de Ordens de Serviços – DER-PE', ano: '2024' },
+                            { nome: 'Entrega de Obras e Assinaturas de OS – DER-PE', ano: '2024' },
                             { nome: 'Agrinordeste', ano: '2024' },
                             { nome: 'NEON - Sebrae PB', ano: '2024' },
                             { nome: 'Feira do Empreendedor - Sebrae PE', ano: '2024' }
                         ],
                         idiomas: [
                             { idioma: 'Português', nivel: 'Nativo' },
-                            { idioma: 'Inglês', nivel: 'Avançado' }
+                            { idioma: 'Inglês', nivel: 'Avançado / Profissional' }
                         ],
                         footer: {
                             direitos: 'Todos os direitos reservados.'
@@ -336,13 +399,12 @@
                     en: {
                         nav: {
                             sobre: 'About',
-                            contato: 'Contact',
                             stacks: 'Technologies',
-                            softSkills: 'Soft Skills',
-                            formacao: 'Education',
-                            experiencia: 'Experience',
                             projetos: 'Projects',
-                            idiomas: 'Languages'
+                            experiencia: 'Experience',
+                            formacao: 'Education',
+                            softSkills: 'Soft Skills',
+                            contato: 'Contact'
                         },
                         secoes: {
                             sobre: 'About me',
@@ -350,92 +412,144 @@
                             stacks: 'Technologies & Tools',
                             softSkills: 'Soft Skills',
                             formacaoAcademica: 'Academic Background',
-                            formacaoComplementar: 'Additional Education',
+                            formacaoComplementar: 'Certifications & Courses',
                             experiencia: 'Professional Experience',
-                            projetosDev: 'Academic Development Projects',
-                            projetosMarketing: 'Promotional Marketing & CX Projects',
+                            projetosDev: 'Academic & Personal Dev Projects',
+                            projetosMarketing: 'Promotional Marketing & Event Projects',
                             idiomas: 'Languages'
                         },
                         btnRepo: 'Access repository',
-                        sobreP1: 'I am <strong>Eduardo Henrique Alves de Carvalho</strong>, born on 10/01/2000. I work as a <strong>Full Stack developer</strong> in career transition, combining my degree in Business Administration from the University of Pernambuco with IT specializations. Currently, I am pursuing a postgraduate degree in Software Engineering at Anhanguera and technical training in Web Development at Senai, with a tech residency at Porto Digital.',
-                        sobreP2: 'I have solid experience in administrative roles at Sebrae and UPE, as well as background in marketing and event agencies. My focus is on developing complete solutions, managing processes, projects, and teams with an emphasis on high performance and customer experience.',
+                        btnCv: 'Download CV',
+                        btnCvDownload: 'Download Resume (PDF)',
+                        sobreP1: 'I am <strong>Eduardo Henrique Alves de Carvalho</strong>, currently focused on transitioning to a <strong>Junior Java / Backend Developer</strong> role[cite: 3]. I combine a solid Business Administration background from the University of Pernambuco (UPE)[cite: 3] with practical IT specializations. To deepen my technical expertise, I am pursuing a Postgraduate degree in Software Engineering (Anhanguera)[cite: 3], a Technical Degree in Web Development (SENAI PE)[cite: 3], and participating in Porto Digital\'s Tech Residency[cite: 3].',
+                        sobreP2: 'My solid background in corporate management, contract administration, and process optimization at Sebrae/PE gives me a unique advantage in understanding business requirements and architecting effective software solutions[cite: 3]. Technically, my focus is on building RESTful APIs with Spring Boot, integrating relational and NoSQL databases, and applying clean code principles[cite: 3].',
                         stacks: [
-                            { categoria: 'Languages & Frameworks', itens: ['Java', 'Python', 'Spring Boot', 'JPA', 'Hibernate', 'Spring Security'] },
-                            { categoria: 'Web Development', itens: ['HTML', 'CSS', 'Bootstrap'] },
+                            { categoria: 'Languages & Frameworks', itens: ['Java 17', 'Python', 'Spring Boot', 'Spring Data JPA', 'Hibernate', 'Spring Security'] },
+                            { categoria: 'Web Development', itens: ['HTML5', 'CSS3', 'Bootstrap', 'Vue.js (Basic)'] },
                             { categoria: 'Security & Auth', itens: ['JWT (JSON Web Token)', 'Spring Security'] },
-                            { categoria: 'Databases', itens: ['PostgreSQL', 'MySQL', 'MongoDB', 'H2'] },
-                            { categoria: 'Dependency Management', itens: ['Maven'] },
-                            { categoria: 'Version Control & Tools', itens: ['Git', 'GitHub', 'Postman'] }
+                            { categoria: 'Databases', itens: ['PostgreSQL', 'MySQL', 'MongoDB', 'H2 Database'] },
+                            { categoria: 'Build & Dependency Management', itens: ['Maven'] },
+                            { categoria: 'Tools & Version Control', itens: ['Git', 'GitHub', 'Postman', 'Docker (Basic)'] }
                         ],
                         softSkills: [
-                            'Teamwork', 'Communication', 'Proactivity', 'Analytical Thinking',
-                            'Resilience', 'Creativity', 'Emotional Intelligence', 'Adaptability'
+                            'Assertive Communication', 'Business & Process Mindset', 'Teamwork', 
+                            'Problem Solving', 'Proactivity', 'Analytical Thinking', 'Resilience', 'Adaptability'
                         ],
                         formacaoAcademica: [
-                            { curso: 'Bachelor of Business Administration', instituicao: 'University of Pernambuco (UPE)', periodo: 'Aug/2019 - Oct/2023', status: 'completed' },
-                            { curso: 'Web Development Technical Degree', instituicao: 'Senai', periodo: 'Apr/2026 - Jun/2027', status: 'in progress' },
-                            { curso: 'Postgraduate in Software Engineering', instituicao: 'Anhanguera', periodo: 'Aug/2026 - Feb/2027', status: 'in progress' }
+                            { curso: 'Bachelor of Business Administration', instituicao: 'University of Pernambuco (UPE)', periodo: 'Aug/2019 - Oct/2023', status: 'Completed' },
+                            { curso: 'Web Development Technical Degree', instituicao: 'SENAI PE', periodo: 'Apr/2026 - Oct/2027', status: 'In Progress' },
+                            { curso: 'Postgraduate in Software Engineering', instituicao: 'Anhanguera Educacional', periodo: 'Aug/2026 - Feb/2027', status: 'In Progress' }
                         ],
                         formacaoComplementar: [
-                            { nome: 'Complete Java with OOP + Projects (Instructor Nelio Alves)', plataforma: 'Udemy' },
-                            { nome: 'Database Knowledge Track', plataforma: 'Fundação Bradesco' },
+                            { nome: 'Introduction to the Brazilian General Data Protection Act (LGPD)', plataforma: 'National School of Public Administration (Enap)' },
+                            { nome: 'Web Data Science with Python', plataforma: 'SENAI PE' },
+                            { nome: 'Complete Java OOP + Projects', plataforma: 'Udemy (Instructor Nelio Alves)' },
+                            { nome: 'Database Learning Track', plataforma: 'Fundação Bradesco' },
                             { nome: 'Introduction to Project Management', plataforma: 'Fundação Bradesco' },
-                            { nome: 'Agile Solutions', plataforma: 'Sebrae' },
-                            { nome: 'Design Thinking', plataforma: 'Sebrae' },
-                            { nome: 'Lean Canvas', plataforma: 'Sebrae' },
-                            { nome: 'Business Models', plataforma: 'Sebrae' }
+                            { nome: 'Agile Solutions & Methodologies', plataforma: 'Sebrae' },
+                            { nome: 'Design Thinking & Lean Canvas', plataforma: 'Sebrae' }
                         ],
                         experiencias: [
-                            { cargo: 'Sales Promoter', empresa: 'Jet Brasil', periodo: 'Jul/26' },
-                            { cargo: 'Logistics Agent', empresa: 'Jet Brasil', periodo: 'Jun/26 - Jul/26' },
-                            { cargo: 'Administrative Assistant II', empresa: 'Sebrae PE', periodo: 'Mar/25 - Sep/25' },
-                            { cargo: 'Producer', empresa: 'Prensa Marketing', periodo: 'Oct/24 - Feb/25' },
-                            { cargo: 'Producer', empresa: 'Carla Dias Assessorias em Eventos', periodo: 'Jul/25 - Oct/25' },
-                            { cargo: 'Producer', empresa: 'Ayres Promoções e Eventos', periodo: 'Jul/25 - Oct/25' },
-                            { cargo: 'Executive Producer', empresa: 'Sebrae PE', periodo: 'Mar/24 - Jun/24' },
-                            { cargo: 'Administrative Assistant I', empresa: 'Sebrae/PE', periodo: 'Jun/23 - Mar/24' },
-                            { cargo: 'Intern', empresa: 'Sebrae PE', periodo: 'Feb/22 - Jun/23' },
-                            { cargo: 'Intern', empresa: 'University of Pernambuco', periodo: 'Nov/20 - Feb/22' }
+                            {
+                                cargo: 'Sales Promoter',
+                                empresa: 'Jet Brasil',
+                                periodo: 'Aug/2026 - Present',
+                                descricao: 'Customer relations, presentation of micro-mobility solutions portfolio, and package sales.'
+                            },
+                            {
+                                cargo: 'Logistics Agent',
+                                empresa: 'Jet Brasil',
+                                periodo: 'Jul/2026 - Aug/2026',
+                                descricao: 'Operational monitoring of electric scooter fleet, battery replacement logistics, and strategic fleet reallocation.'
+                            },
+                            {
+                                cargo: 'Tech Resident (Kick Off)',
+                                empresa: 'Porto Digital',
+                                periodo: 'Apr/2026 - Jul/2026',
+                                descricao: 'Hands-on immersion in Porto Digital\'s innovation ecosystem, working on real-world projects with agile practices.'
+                            },
+                            {
+                                cargo: 'Logistics Coordinator',
+                                empresa: 'Fundação Cultural Guararapes - FUNDAJG',
+                                periodo: 'Apr/2025 - Nov/2025',
+                                descricao: 'Operational logistics for national cultural funding initiatives (PNAB). Managing event infrastructure and financial compliance reporting.'
+                            },
+                            {
+                                cargo: 'Administrative Assistant II',
+                                empresa: 'Sebrae PE',
+                                periodo: 'Mar/2025 - Sep/2025',
+                                descricao: 'Asset management, depreciation control, maintenance ticket resolution, contract monitoring, and ESG initiative support.'
+                            },
+                            {
+                                cargo: 'Event Producer',
+                                empresa: 'Prensa Marketing',
+                                periodo: 'Oct/2024 - Feb/2025',
+                                descricao: 'Coordination of large-scale corporate events (Ademi, Rede D\'Or, Novo Atacarejo). Budgeting, vendor negotiations, and execution management.'
+                            },
+                            {
+                                cargo: 'Executive Producer - Entrepreneur Fair',
+                                empresa: 'Sebrae PE',
+                                periodo: 'Mar/2024 - Jun/2024',
+                                descricao: 'Operational and logistical coordination for Sebrae/PE Entrepreneur Fair 2024. Squad management, vendor oversight, and contract compliance.'
+                            },
+                            {
+                                cargo: 'Administrative Assistant I',
+                                empresa: 'Sebrae PE',
+                                periodo: 'Jun/2023 - Mar/2024',
+                                descricao: 'Fleet management, travel and allowance procurement, supporting purchasing workflows, and managing ERP systems.'
+                            },
+                            {
+                                cargo: 'Administrative Intern',
+                                empresa: 'Sebrae PE',
+                                periodo: 'Feb/2022 - Jun/2023',
+                                descricao: 'Executive support in administrative routines, third-party contract monitoring, report drafting, and sustainability/ESG projects.'
+                            },
+                            {
+                                cargo: 'Finance Intern',
+                                empresa: 'University of Pernambuco (UPE)',
+                                periodo: 'Nov/2020 - Feb/2022',
+                                descricao: 'Financial operations support at FCAP/UPE campus. Invoice verification, public expenditure accounting, and budget tracking.'
+                            }
                         ],
                         projetosDev: [
                             {
+                                titulo: 'Java - Users API — Spring Boot + JWT (Personal)',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/usuarios-api',
+                                descricao: `Personal REST API developed to practice core backend and security principles[cite: 3].\n• Authentication & Authorization powered by Spring Security and JWT[cite: 3]\n• Task CRUD operations associated with authenticated users[cite: 3]\n• Layered architecture using DTOs, Lombok, and global exception handling (@ControllerAdvice)[cite: 3]\n• PostgreSQL database integration via Spring Data JPA[cite: 3]\n• Tech Stack: Java 17 · Spring Boot · Spring Security · JWT · PostgreSQL · Maven[cite: 3]`
+                            },
+                            {
+                                titulo: 'Java - E-commerce API — Spring Boot + JPA',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/jpa-spring',
+                                descricao: `REST API for an e-commerce platform managing users, orders, products, categories, and payments[cite: 3].\n• Domain model featuring 6 related entities (@ManyToOne, @ManyToMany, @OneToOne)[cite: 3]\n• Composite primary keys using @EmbeddedId for order items[cite: 3]\n• Customized exception handling for resource management[cite: 3]\n• Tech Stack: Java 17 · Spring Boot · Spring Data JPA · Hibernate · H2 Database · Maven[cite: 3]`
+                            },
+                            {
+                                titulo: 'Java - Users & Posts API — Spring Boot + MongoDB',
+                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/mongodb',
+                                descricao: `REST API integrated with NoSQL database for managing users and posts with nested comments[cite: 3].\n• Advanced text search and date range filtering queries in MongoDB[cite: 3]\n• Optimized document embedding patterns for NoSQL reads[cite: 3]\n• Tech Stack: Java 17 · Spring Boot · Spring Data MongoDB · MongoDB · Maven[cite: 3]`
+                            },
+                            {
                                 titulo: 'Java - Pure JPA — CRUD with EntityManager',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/main/CRUD%20-%20JPA',
-                                descricao: `Java application demonstrating CRUD operations using pure JPA with EntityManager, without frameworks like Spring.\nMapped Entity with @Entity, @Id, and @GeneratedValue\nOperations: persist, find, update, and remove\nConcepts: EntityManagerFactory, EntityManager, transaction control, and persistence.xml\nTechnologies: Java · JPA · Hibernate · Maven`
+                                descricao: `Core JPA project built without Spring Data framework abstractions[cite: 3].\n• Manual transaction and entity lifecycle control using EntityManager[cite: 3]\n• Explicit XML persistence configuration[cite: 3]\n• Tech Stack: Java · JPA · Hibernate · Maven[cite: 3]`
                             },
                             {
-                                titulo: 'Java - Spring Boot JPA — Web Services (E-commerce API)',
-                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/jpa-spring',
-                                descricao: `E-commerce REST API developed with Spring Boot and JPA/Hibernate with full management of users, products, categories, and orders.\nDomain model with 6 related entities\nREST Endpoints for Users, Orders, Products, and Categories\nJPA Relationships: @ManyToOne, @OneToMany, @OneToOne, @ManyToMany, and composite key with @EmbeddedId\nError handling with @ControllerAdvice\nTechnologies: Java 17 · Spring Boot · Spring Data JPA · Hibernate · Maven`
-                            },
-                            {
-                                titulo: 'Java - Spring Boot MongoDB - Users & Posts API',
-                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/mongodb',
-                                descricao: `REST API built with Spring Boot and MongoDB to manage users and posts, supporting nested comments and advanced search queries.\nFull REST endpoints for Users and Posts (GET, POST, PUT, DELETE)\nAdvanced search filtering by text and date range in MongoDB documents\nData model with nested documents (posts containing authors and comments)\nDTO pattern for clean data transfer and separation of concerns\nTech Stack: Java 17 · Spring Boot · Spring Data MongoDB · MongoDB · Maven\nDeveloped during the Complete Java OOP course (Nelio Alves)`
-                            },
-                            {
-                                titulo: 'Java - Users API - Spring Boot + JWT',
-                                link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/08fcfb948ae8f67a5db4f81d635c6d4064e36f5f/usuarios-api',
-                                descricao: `Independent project developed to apply core backend practices using Java and Spring Boot. Manages users and tasks with authentication and authorization powered by JWT and Spring Security.\nFull auth flow: registration, login, and JWT-protected route filters\nTask CRUD tied directly to the authenticated user\nUser management with lookup by ID and email\nGlobal exception handling and DTO architecture\nCode reviewed with AI assistance as a learning catalyst to refine best practices in backend development.\nTech Stack: Java · Spring Boot · Spring Security · JWT · Spring Data JPA · PostgreSQL · Lombok · Maven`
-                            },
-                            {
-                                titulo: 'Java - Chess System - OOP',
+                                titulo: 'Java - Chess System — OOP & Console',
                                 link: 'https://github.com/eduardohacarvalho/Projetos-Java/tree/main/sistema-xadrez',
-                                descricao: `Complete console-based Chess game built in Java with custom CLI formatting. A comprehensive project demonstrating advanced OOP principles and complex logical rules.\n6 fully functional chess pieces (King, Queen, Rook, Bishop, Knight, Pawn)\nSpecial moves: Castling, En Passant, and Pawn Promotion\nCheck and Checkmate validation logic\nLayered architecture separating generic board logic (boardgame) from chess rules (chess)\nTech Stack: Java 17 · OOP · Maven\nDeveloped during the Complete Java OOP course (Nelio Alves)`
+                                descricao: `Console application showcasing advanced Object-Oriented Programming rules[cite: 3].\n• Implementation of complex chess rules: Castling, En Passant, Promotion, Check/Checkmate[cite: 3]\n• Layered architecture separating board matrix mechanics from chess game logic[cite: 3]\n• Tech Stack: Java 17 · OOP · Maven[cite: 3]`
                             }
                         ],
                         projetosMarketing: [
                             { nome: 'Corrida do Novo', ano: '2025' },
-                            { nome: 'Celebra - Rede d\'or', ano: '2024' },
+                            { nome: 'Celebra - Rede d\'Or', ano: '2024' },
                             { nome: 'Corrida dos Morros - Morro da Conceição', ano: '2024' },
-                            { nome: 'Public Works Handover Events & Order Signing – DER-PE', ano: '2024' },
+                            { nome: 'Public Works Handover Events – DER-PE', ano: '2024' },
                             { nome: 'Agrinordeste', ano: '2024' },
                             { nome: 'NEON - Sebrae PB', ano: '2024' },
                             { nome: 'Feira do Empreendedor - Sebrae PE', ano: '2024' }
                         ],
                         idiomas: [
                             { idioma: 'Portuguese', nivel: 'Native' },
-                            { idioma: 'English', nivel: 'Advanced' }
+                            { idioma: 'English', nivel: 'Advanced / Full Professional' }
                         ],
                         footer: {
                             direitos: 'All rights reserved.'
